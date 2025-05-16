@@ -36,7 +36,7 @@ int main(int argc, char* argv[]) {
     ifstream file(filename);
     
     if (!file.is_open()) {
-        cerr << "Error opening file: " << filename << endl;
+        cerr << "Error: " << filename << endl;
         return 1;
     }
     
@@ -54,7 +54,10 @@ int main(int argc, char* argv[]) {
             word_counts[cleaned]++;
         }
     }
-    
+
+    auto end_time = high_resolution_clock::now();
+    auto duration = duration_cast<milliseconds>(end_time - start_time);
+
     // Convert to vector for sorting by frequency
     vector<pair<string, size_t>> sorted_counts(
         word_counts.begin(), word_counts.end()
@@ -68,7 +71,7 @@ int main(int argc, char* argv[]) {
     );
     
     // Print results
-    cout << "Word count results (sorted by frequency):" << endl;
+    cout << "Resultados (ordenados por frecuencia):" << endl;
     cout << "Word\t\tCount" << endl;
     cout << "------------------------" << endl;
     
@@ -77,13 +80,9 @@ int main(int argc, char* argv[]) {
     }
     
     // Print total unique words
-    cout << "\nTotal unique words: " << word_counts.size() << endl;
-    
-    // End timing and print execution time
-    auto end_time = high_resolution_clock::now();
-    auto duration = duration_cast<milliseconds>(end_time - start_time);
-    
-    cout << "Execution time: " << duration.count() << " milliseconds" << endl;
+    cout << "\nNumero de palabras distintas: " << word_counts.size() << endl;
+     
+    cout << "Tiempo de ejecucion: " << duration.count() << " milisegundos" << endl;
     
     return 0;
 }
